@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://2rq7wdo6c88c"]
+
+[ext_resource type="PackedScene" uid="uid://copggfvwo7diy" path="res://src/scenes/player.tscn" id="1_fgu8s"]
+[ext_resource type="Script" path="res://src/scenes/world.gd" id="1_h83ao"]
+[ext_resource type="PackedScene" uid="uid://er70geervaps" path="res://src/scenes/floor_fragment.tscn" id="3_qsivp"]
+[ext_resource type="Texture2D" uid="uid://dyhry8o8myujs" path="res://assets/floor_fragment.svg" id="4_vdhep"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_h83ao")
+
+[node name="Player" parent="." instance=ExtResource("1_fgu8s")]
+position = Vector2(112, 605)
+
+[node name="FloorFragment" parent="." instance=ExtResource("3_qsivp")]
+visible = false
+position = Vector2(0, 674)
+
+[node name="FloorFragment2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(195, 697)
+texture = ExtResource("4_vdhep")
+flip_v = true
+
+[node name="FloorFragment3" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(325, 697)
+texture = ExtResource("4_vdhep")
+flip_h = true
+
+[node name="FloorFragment4" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(455, 697)
+texture = ExtResource("4_vdhep")
+flip_h = true
+flip_v = true

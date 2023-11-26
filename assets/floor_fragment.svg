@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="23.014761mm"
+   height="8.0369005mm"
+   viewBox="0 0 23.014761 8.0369005"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="floor_fragment.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="5.7941077"
+     inkscape:cx="175.43685"
+     inkscape:cy="159.04088"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:export-bgcolor="#ffffff00" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-27.763838,-33.243541)">
+    <rect
+       style="fill:#008080;stroke-width:0.264583"
+       id="rect1"
+       width="23.014759"
+       height="8.0369005"
+       x="27.763838"
+       y="33.243542" />
+    <path
+       style="fill:#006363;fill-opacity:1;stroke-width:0.264583"
+       d="m 29.681733,33.33487 c 3.470482,2.602859 3.516146,4.3381 3.516146,4.3381"
+       id="path1" />
+    <path
+       style="fill:#006363;fill-opacity:1;stroke-width:0.264583"
+       d="m 29.590404,39.179888 c 7.488931,0.913284 7.762918,0.547971 7.762918,0.547971"
+       id="path2" />
+    <path
+       style="fill:#006363;fill-opacity:1;stroke-width:0.264583"
+       d="M 46.851477,35.207104 C 43.837637,39.49954 39.63653,36.25738 39.63653,36.25738"
+       id="path3" />
+    <path
+       style="fill:#006363;fill-opacity:1;stroke-width:0.264583"
+       d="m 43.335331,39.453875 2.054889,1.552583 3.561808,-2.283211 -1.643909,-1.004613"
+       id="path4" />
+    <path
+       style="fill:#006363;fill-opacity:1;stroke-width:0.264583"
+       d="m 37.90129,38.449261 c 0,0.821955 -2.968173,-1.324263 -2.968173,-1.324263 l 2.694189,-0.730626"
+       id="path5" />
+  </g>
+</svg>
