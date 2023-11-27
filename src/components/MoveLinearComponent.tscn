@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qgap0jv28g6p"]
+
+[ext_resource type="Script" path="res://src/components/MoveLinearComponent.gd" id="1_2nq32"]
+
+[node name="MoveLinearComponent" type="Node"]
+script = ExtResource("1_2nq32")
