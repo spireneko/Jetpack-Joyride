@@ -1,3 +1,3 @@
 extends Node
 
-const WORLD_SPEED : float = 100.0
+const world_speed : float = 100.0
