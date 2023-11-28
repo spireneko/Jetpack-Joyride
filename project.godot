@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://src/Globals.gd"
+Globals="*res://src/world/Globals.gd"
 
 [debug]
 
@@ -27,6 +27,7 @@ gdscript/warnings/narrowing_conversion=0
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [input]
 

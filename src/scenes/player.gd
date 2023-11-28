@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -15,18 +16,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		is_jetpack_button_pressed = true
 	if Input.is_action_just_released("turn_on_jetpack"):
 		is_jetpack_button_pressed = false
-
-
-# func _physics_process(delta: float) -> void:
-# 	if is_jetpack_button_pressed:
-# 		velocity.y = SPEED
-# 	else:
-# 		velocity.y -= gravity
-# 		velocity.y = move_toward(velocity.y, 0, -SPEED / 10)
-# 	# velocity.y *= SPEED
-# 	velocity.y += gravity
-
-# 	move_and_slide()
 
 
 func _physics_process(delta: float) -> void:

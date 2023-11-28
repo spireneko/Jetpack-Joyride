@@ -2,13 +2,17 @@ extends Node2D
 
 const FloorFragment := preload("res://src/scenes/floor_fragment.gd")
 const FloorFragmentScn := preload("res://src/scenes/floor_fragment.tscn")
+const ObstaclesGenerator := preload("res://src/world/ObstaclesGenerator.gd")
+const WorldFollow := preload("res://src/world/WorldFollow.gd")
 
+var score : float = 0.0
 var floor_path : Path2D
 var game_resolution := Vector2(
 	ProjectSettings.get_setting("display/window/size/viewport_width"),
 	ProjectSettings.get_setting("display/window/size/viewport_height")
 )
 var floor_size : Vector2
+var obstacles_generator : ObstaclesGenerator
 
 
 func _ready():
@@ -65,13 +69,17 @@ func _ready():
 	)
 	body.add_child(floor_collision)
 
+	# Instantiate ObstacleGenerator that will create foes and obstacles
+	obstacles_generator = ObstaclesGenerator.new()
+	obstacles_generator.height_limits = Vector2(
+		game_resolution.y / 2 - floor_size.y,
+		-game_resolution.y / 2 + floor_size.y
+	)
+	add_child(obstacles_generator)
+
 
 func _physics_process(delta: float) -> void:
-	var moing_with_world_group := get_tree().get_nodes_in_group("moving_with_world")
-	for node in moing_with_world_group:
-		if "progress" in node:
-			node.progress += Globals.world_speed * delta
-
+	get_tree().call_group("moving_with_world", "add_to_progress", delta)
 
 
 func _generate_floor(amount_of_fragments: int, is_floor: bool):
@@ -98,7 +106,19 @@ func _generate_floor(amount_of_fragments: int, is_floor: bool):
 # with Globals.world_speed that is the right choice
 func add_to_floor_path(node: Node2D) -> PathFollow2D:
 	var new_path_follow := PathFollow2D.new()
+	new_path_follow.set_script(WorldFollow)
+	new_path_follow.rotates = false
 	new_path_follow.add_to_group("moving_with_world")
 	new_path_follow.add_child(node)
+	node.tree_exited.connect(new_path_follow._on_child_free)
 	floor_path.add_child(new_path_follow)
 	return new_path_follow
+
+
+func _on_spawn_obstacle_timer_timeout() -> void:
+	obstacles_generator.generate_random_obstacle()
+	# obstacles_generator.generate_rocket()
+
+
+func _on_accelerate_world_timer_timeout() -> void:
+	Globals.world_speed *= 1.1

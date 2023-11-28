@@ -9,3 +9,14 @@ script = ExtResource("1_h83ao")
 
 [node name="Player" parent="." instance=ExtResource("1_fgu8s")]
 position = Vector2(112, 605)
+
+[node name="SpawnObstacleTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="AccelerateWorldTimer" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
+[connection signal="timeout" from="SpawnObstacleTimer" to="." method="_on_spawn_obstacle_timer_timeout"]
+[connection signal="timeout" from="AccelerateWorldTimer" to="." method="_on_accelerate_world_timer_timeout"]
