@@ -5,6 +5,8 @@ const FloorFragmentScn := preload("res://src/scenes/floor_fragment.tscn")
 const ObstaclesGenerator := preload("res://src/world/ObstaclesGenerator.gd")
 const WorldFollow := preload("res://src/world/WorldFollow.gd")
 
+@onready var gui := $GUI as GUI
+
 var score : float = 0.0
 var floor_path : Path2D
 var game_resolution := Vector2(
@@ -25,14 +27,14 @@ func _ready():
 	tmp_fragment.free()
 
 	# Count sufficent amount of fragments to fill the screen
-	var amount_of_fragments : int = game_resolution.x / floor_size.x + 5
+	var amount_of_fragments : int = game_resolution.x / floor_size.x + 7
 
 	# Create Path2D that fragments will follow
 	floor_path = Path2D.new()
 	floor_path.position.y = game_resolution.y / 2
 	floor_path.curve = Curve2D.new()
-	floor_path.curve.add_point(Vector2((amount_of_fragments - 1) * floor_size.x, 0))
-	floor_path.curve.add_point(Vector2(-floor_size.x, 0))
+	floor_path.curve.add_point(Vector2((amount_of_fragments - 3) * floor_size.x, 0))
+	floor_path.curve.add_point(Vector2(-floor_size.x * 3, 0))
 	add_child(floor_path)
 
 	# Create fragments and attach them to floor_path
@@ -80,6 +82,8 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	get_tree().call_group("moving_with_world", "add_to_progress", delta)
+	score += (Globals.world_speed / Globals.WORLD_SPEED_BASE) * delta
+	gui.set_score(int(score))
 
 
 func _generate_floor(amount_of_fragments: int, is_floor: bool):
@@ -121,4 +125,4 @@ func _on_spawn_obstacle_timer_timeout() -> void:
 
 
 func _on_accelerate_world_timer_timeout() -> void:
-	Globals.world_speed *= 1.1
+	Globals.world_speed += Globals.WORLD_SPEED_BASE

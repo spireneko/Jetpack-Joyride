@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://2rq7wdo6c88c"]
+[gd_scene load_steps=5 format=3 uid="uid://2rq7wdo6c88c"]
 
 [ext_resource type="PackedScene" uid="uid://copggfvwo7diy" path="res://src/scenes/player.tscn" id="1_fgu8s"]
 [ext_resource type="Script" path="res://src/scenes/world.gd" id="1_h83ao"]
+[ext_resource type="PackedScene" uid="uid://dkhu0tlsoxggq" path="res://src/scenes/gui.tscn" id="4_5xvgp"]
+[ext_resource type="PackedScene" uid="uid://djmsto7ailv8d" path="res://src/scenes/coin.tscn" id="4_a3jws"]
 
 [node name="World" type="Node2D"]
 position = Vector2(0, -1)
@@ -17,6 +19,11 @@ autostart = true
 [node name="AccelerateWorldTimer" type="Timer" parent="."]
 wait_time = 7.0
 autostart = true
+
+[node name="Coin" parent="." instance=ExtResource("4_a3jws")]
+position = Vector2(112, 519)
+
+[node name="GUI" parent="." instance=ExtResource("4_5xvgp")]
 
 [connection signal="timeout" from="SpawnObstacleTimer" to="." method="_on_spawn_obstacle_timer_timeout"]
 [connection signal="timeout" from="AccelerateWorldTimer" to="." method="_on_accelerate_world_timer_timeout"]
