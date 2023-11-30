@@ -8,6 +8,7 @@ const WorldFollow := preload("res://src/world/WorldFollow.gd")
 @onready var gui := $GUI as GUI
 
 var score : float = 0.0
+var coins : int = 0
 var floor_path : Path2D
 var game_resolution := Vector2(
 	ProjectSettings.get_setting("display/window/size/viewport_width"),
@@ -84,6 +85,7 @@ func _physics_process(delta: float) -> void:
 	get_tree().call_group("moving_with_world", "add_to_progress", delta)
 	score += (Globals.world_speed / Globals.WORLD_SPEED_BASE) * delta
 	gui.set_score(int(score))
+	gui.set_coins(coins)
 
 
 func _generate_floor(amount_of_fragments: int, is_floor: bool):
@@ -120,9 +122,13 @@ func add_to_floor_path(node: Node2D) -> PathFollow2D:
 
 
 func _on_spawn_obstacle_timer_timeout() -> void:
-	obstacles_generator.generate_random_obstacle()
+	obstacles_generator.generate_random_obstacle(_increment_coins)
+	# obstacles_generator.generate_coins_struct()
 	# obstacles_generator.generate_rocket()
 
 
 func _on_accelerate_world_timer_timeout() -> void:
 	Globals.world_speed += Globals.WORLD_SPEED_BASE
+
+func _increment_coins() -> void:
+	coins += 1

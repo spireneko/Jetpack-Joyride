@@ -28,7 +28,7 @@ text = "0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/ScoreContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 7
 
 [node name="Coins" type="Label" parent="HUD/ScoreContainer/HBoxContainer"]
 layout_mode = 2

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb7b2m1nsaxq7"]
+
+[ext_resource type="Script" path="res://src/scenes/follow_entity/follow_entity_base.gd" id="1_3ebtg"]
+
+[node name="FollowEntityBase" type="Area2D"]
+script = ExtResource("1_3ebtg")
+
+[node name="VisibleOnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
