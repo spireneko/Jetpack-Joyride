@@ -8,7 +8,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
 
-func connect_all_coins(function) -> void:
+func connect_all_coins(function: Callable) -> void:
 	for coin in get_children():
 		if coin is Coin:
 			coin.player_entered.connect(function)

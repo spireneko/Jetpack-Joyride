@@ -6,9 +6,9 @@ const ObstaclesGenerator := preload("res://src/world/ObstaclesGenerator.gd")
 const WorldFollow := preload("res://src/world/WorldFollow.gd")
 
 @onready var gui := $GUI as GUI
+@onready var player := $Player as Player
 
-var score : float = 0.0
-var coins : int = 0
+var player_stats := preload("res://src/resources/player_stats.tres") as PlayerStats
 var floor_path : Path2D
 var game_resolution := Vector2(
 	ProjectSettings.get_setting("display/window/size/viewport_width"),
@@ -16,9 +16,12 @@ var game_resolution := Vector2(
 )
 var floor_size : Vector2
 var obstacles_generator : ObstaclesGenerator
+var starting_player_pos : Vector2
 
 
-func _ready():
+func _ready() -> void:
+	starting_player_pos = player.position
+
 	# Calculate fragment size
 	var tmp_fragment := FloorFragmentScn.instantiate() as FloorFragment
 	floor_size = Vector2(
@@ -83,12 +86,18 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	get_tree().call_group("moving_with_world", "add_to_progress", delta)
-	score += (Globals.world_speed / Globals.WORLD_SPEED_BASE) * delta
-	gui.set_score(int(score))
-	gui.set_coins(coins)
+	player_stats.score += (Globals.world_speed / Globals.WORLD_SPEED_BASE) * delta
 
 
-func _generate_floor(amount_of_fragments: int, is_floor: bool):
+func _reset() -> void:
+	Globals.world_speed = Globals.WORLD_SPEED_BASE
+	player_stats.score = 0.0
+	player_stats.coins = 0
+	player.position = starting_player_pos
+	get_tree().call_group("not_resetable", "queue_free")
+
+
+func _generate_floor(amount_of_fragments: int, is_floor: bool) -> void:
 	var displacement_coefficient : int = 1
 	if is_floor:
 		displacement_coefficient = 3
@@ -104,13 +113,13 @@ func _generate_floor(amount_of_fragments: int, is_floor: bool):
 			new_fragment.position.y = -game_resolution.y / 2
 		new_fragment.flip_h = is_flipping_h
 		new_fragment.flip_v = is_flipping_v
-		var path_follow := add_to_floor_path(new_fragment)
+		var path_follow := add_to_floor_path(new_fragment, true)
 		path_follow.progress = new_fragment.width * i
 
 
 # If you want something to move from left to right
 # with Globals.world_speed that is the right choice
-func add_to_floor_path(node: Node2D) -> PathFollow2D:
+func add_to_floor_path(node: Node2D, is_resetable: bool = false) -> PathFollow2D:
 	var new_path_follow := PathFollow2D.new()
 	new_path_follow.set_script(WorldFollow)
 	new_path_follow.rotates = false
@@ -118,11 +127,13 @@ func add_to_floor_path(node: Node2D) -> PathFollow2D:
 	new_path_follow.add_child(node)
 	node.tree_exited.connect(new_path_follow._on_child_free)
 	floor_path.add_child(new_path_follow)
+	if !is_resetable:
+		new_path_follow.add_to_group("not_resetable")
 	return new_path_follow
 
 
 func _on_spawn_obstacle_timer_timeout() -> void:
-	obstacles_generator.generate_random_obstacle(_increment_coins)
+	obstacles_generator.generate_random_obstacle(_kill_player, _increment_coins)
 	# obstacles_generator.generate_coins_struct()
 	# obstacles_generator.generate_rocket()
 
@@ -130,5 +141,14 @@ func _on_spawn_obstacle_timer_timeout() -> void:
 func _on_accelerate_world_timer_timeout() -> void:
 	Globals.world_speed += Globals.WORLD_SPEED_BASE
 
+
 func _increment_coins() -> void:
-	coins += 1
+	player_stats.coins += 1
+
+
+func _kill_player() -> void:
+	player_stats.save_values_to_file()
+	gui.call_game_over_menu()
+
+func _on_gui_restart_requested() -> void:
+	_reset()

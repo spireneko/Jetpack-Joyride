@@ -23,3 +23,4 @@ autostart = true
 
 [connection signal="timeout" from="SpawnObstacleTimer" to="." method="_on_spawn_obstacle_timer_timeout"]
 [connection signal="timeout" from="AccelerateWorldTimer" to="." method="_on_accelerate_world_timer_timeout"]
+[connection signal="restart_requested" from="GUI" to="." method="_on_gui_restart_requested"]

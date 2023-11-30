@@ -14,17 +14,18 @@ const LineCoinsStructureScn := preload("res://src/scenes/coins_structures/line_c
 var height_limits : Vector2
 
 
-func generate_random_obstacle(coins_adder: Callable) -> void:
-	generate_rocket(RocketTypes.values()[randi() % RocketTypes.size()])
+func generate_random_obstacle(kill_function: Callable, coins_adder: Callable) -> void:
+	generate_rocket(kill_function,
+			RocketTypes.values()[randi() % RocketTypes.size()])
 	generate_coins_struct(coins_adder,
 			CoinsStructureTypes.values()[randi() % CoinsStructureTypes.size()])
 
 
-func generate_rocket(rocket_type: RocketTypes = RocketTypes.ONE_LOW) -> void:
+func generate_rocket(kill_function: Callable ,rocket_type: RocketTypes = RocketTypes.ONE_LOW) -> void:
 	if height_limits == Vector2.ZERO:
 		return
 	
-	var local_height_limits = height_limits + Vector2(-40.0, 50.0)
+	var local_height_limits : Vector2 = height_limits + Vector2(-40.0, 50.0)
 
 	var first_new_rocket := RocketScn.instantiate() as Rocket
 	match rocket_type:
@@ -39,6 +40,7 @@ func generate_rocket(rocket_type: RocketTypes = RocketTypes.ONE_LOW) -> void:
 			var second_new_rocket := RocketScn.instantiate() as Rocket
 			first_new_rocket.position.y = local_height_limits.x
 			second_new_rocket.position.y = local_height_limits.y
+			second_new_rocket.player_entered.connect(kill_function)
 			var second_path_follow : PathFollow2D = get_parent().add_to_floor_path(second_new_rocket)
 			second_path_follow.add_to_group("rockets")
 		RocketTypes.TWO_RANDOM:
@@ -47,9 +49,11 @@ func generate_rocket(rocket_type: RocketTypes = RocketTypes.ONE_LOW) -> void:
 					local_height_limits.x, local_height_limits.y)
 			second_new_rocket.position.y = randf_range(
 					local_height_limits.x, local_height_limits.y)
+			second_new_rocket.player_entered.connect(kill_function)
 			var second_path_follow : PathFollow2D = get_parent().add_to_floor_path(second_new_rocket)
 			second_path_follow.add_to_group("rockets")
 
+	first_new_rocket.player_entered.connect(kill_function)
 	var first_path_follow : PathFollow2D = get_parent().add_to_floor_path(first_new_rocket)
 	first_path_follow.add_to_group("rockets")
 

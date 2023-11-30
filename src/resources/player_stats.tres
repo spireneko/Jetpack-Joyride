@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://bf8e57x0ur5i5"]
+
+[ext_resource type="Script" path="res://src/resources/player_stats.gd" id="1_3yx77"]
+
+[resource]
+script = ExtResource("1_3yx77")

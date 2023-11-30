@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Temporary folder with saves and other files
+player_data/

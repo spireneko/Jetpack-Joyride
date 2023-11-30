@@ -11,7 +11,7 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_jetpack_button_pressed := false
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("turn_on_jetpack"):
 		is_jetpack_button_pressed = true
 	if Input.is_action_just_released("turn_on_jetpack"):
