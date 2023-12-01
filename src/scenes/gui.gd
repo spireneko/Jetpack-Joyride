@@ -20,14 +20,6 @@ func _ready() -> void:
 	_reset()
 
 
-func _unhandled_key_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		if get_tree().paused == false:
-			_on_pause_button_pressed()
-		elif get_tree().paused == true and _pause_menu.visible == true:
-			_on_continue_button_pressed()
-
-
 func _reset() -> void:
 	set_score(0)
 	set_coins(0)

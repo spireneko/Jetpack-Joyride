@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-
 const SPEED = -1080.0
 const MAX_SPEED = 600
 
@@ -22,8 +21,12 @@ func _physics_process(delta: float) -> void:
 	if is_jetpack_button_pressed:
 		velocity.y += SPEED * delta
 	else:
-		# velocity.y = move_toward(velocity.y, 0, -SPEED / 10)
 		velocity.y += gravity * delta
 	velocity.y = clampf(velocity.y, -MAX_SPEED, MAX_SPEED)
 
 	move_and_slide()
+
+
+func reset() -> void:
+	is_jetpack_button_pressed = false
+	velocity = Vector2.ZERO

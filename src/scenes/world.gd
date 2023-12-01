@@ -7,6 +7,8 @@ const WorldFollow := preload("res://src/world/WorldFollow.gd")
 
 @onready var gui := $GUI as GUI
 @onready var player := $Player as Player
+@onready var spawn_obstacle_timer := $SpawnObstacleTimer as Timer
+@onready var accelerate_world_timer := $AccelerateWorldTimer as Timer
 
 var player_stats := preload("res://src/resources/player_stats.tres") as PlayerStats
 var floor_path : Path2D
@@ -94,6 +96,9 @@ func _reset() -> void:
 	player_stats.score = 0.0
 	player_stats.coins = 0
 	player.position = starting_player_pos
+	accelerate_world_timer.start()
+	spawn_obstacle_timer.start()
+	player.reset()
 	get_tree().call_group("not_resetable", "queue_free")
 
 
