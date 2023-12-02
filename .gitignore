@@ -3,3 +3,5 @@
 
 # Temporary folder with saves and other files
 player_data/
+
+.DS_Store
