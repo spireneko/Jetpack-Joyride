@@ -9,7 +9,7 @@ position = Vector2(0, -1)
 script = ExtResource("1_h83ao")
 
 [node name="Player" parent="." instance=ExtResource("1_fgu8s")]
-position = Vector2(112, 605)
+position = Vector2(202, 605)
 
 [node name="SpawnObstacleTimer" type="Timer" parent="."]
 wait_time = 5.0

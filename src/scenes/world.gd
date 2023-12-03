@@ -77,6 +77,18 @@ func _ready() -> void:
 	)
 	body.add_child(floor_collision)
 
+	# Let particles to collide with floor
+	var light_occluder := LightOccluder2D.new()
+	light_occluder.occluder = OccluderPolygon2D.new()
+	light_occluder.position = Vector2(0, game_resolution.y - floor_size.y)
+	light_occluder.occluder.polygon = PackedVector2Array([
+			Vector2(-floor_size.x * 3, -35),
+			Vector2((amount_of_fragments - 3) * floor_size.x, -35),
+			Vector2((amount_of_fragments - 3) * floor_size.x, floor_size.y - 35),
+			Vector2(-floor_size.x * 3, floor_size.y - 35),
+		])
+	body.add_child(light_occluder)
+
 	# Instantiate ObstacleGenerator that will create foes and obstacles
 	obstacles_generator = ObstaclesGenerator.new()
 	obstacles_generator.height_limits = Vector2(
